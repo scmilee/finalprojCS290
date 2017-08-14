@@ -13,8 +13,8 @@ else{
   holder += "&lbsOr=0";
 }
 
-req.open("GET", "/insert?" + holder, true);                 //Open the get request for asynchronous with the holder url packed
-req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+request.open("GET", "/insert?" + holder, true);                 //Open the get request for asynchronous with the holder url packed
+request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 
 req.addEventListener('load', function(){
   if(req.status >= 200 && req.status < 400){
