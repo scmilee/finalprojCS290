@@ -66,7 +66,7 @@ app.get('/', function(req, res, next){
         params.push(placeH);
     }
     context.results = params;
-    res.render('table', context);
+    req.render('table', context);
     })
 });
 
