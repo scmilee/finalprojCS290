@@ -87,7 +87,7 @@ request.addEventListener('load', function(){
   }
 });
  request.send(null);
-event.preventDefault();  //no refreshes!
+  //no refreshes!
 });
 //function that well, deletes an entry
 function deleteData(tableId, id){
@@ -101,6 +101,7 @@ for(var i = 1; i < numRows; i++){
   var erase = findData[findData.length -1];
   if(erase.children[1].id === deleteItem){                //matches delete ID with row
     table.deleteRow(i);
+    i = numRows;
   }
 }
 var req = new XMLHttpRequest();
