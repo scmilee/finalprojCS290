@@ -66,7 +66,7 @@ app.get('/', function(req, res, next){
         params.push(placeH);
     }
     context.results = params;
-    req.render('table', context);
+    res.render('table', context);
     })
 });
 
@@ -86,7 +86,7 @@ app.get('/insert',function(req,res,next){
           return;
         }
         context.inserted = res.insertId;
-        res.send(JSON.stringify(context));
+        req.send(JSON.stringify(context));
   });
 });
 //delete entry at the passed ID param
