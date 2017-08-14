@@ -4,7 +4,7 @@ document.getElementById('addExerciseButton').addEventListener('click',function(e
 var addExercise = document.getElementById("addExercise");
 var req = new XMLHttpRequest();
 //sets the query URL for the DB interactions
-var holder ="exercise="+document.getElementById('exercise').value+"&reps="+document.getElementById('reps').value+"&weight="+document.getElementById('weight').value+"&date="+document.getElementById('date').value;
+var holder ="exercise="+addExercise.elements.exercise.value+"&reps="+addExercise.elements.reps.value+"&weight="+addExercise.elements.weight.value+"&date="+addExercise.elements.date.value;
 
 if(addExercise.elements.lbsOr.checked){
   holder += "&lbsOr=1";                                     //bool check again
