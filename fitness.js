@@ -5,16 +5,15 @@ var handlebars = require("express-handlebars").create({defaultLayout: "main"});
 var mysql = require("mysql");
 
 var pool = mysql.createPool({
-    host: "localhost",
-    port: "8088",
-    user: "student",
-    password: "default",
-    database: "student"
+    host: "classmysql.engr.oregonstate.edu",
+    user: "cs290_drudged",
+    password: "5602",
+    database: "cs290_drudged"
 });
 
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
-app.set("port", 5612);
+app.set("port", 5613);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
