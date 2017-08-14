@@ -79,13 +79,14 @@ req.addEventListener('load', function(){
     deleteCell.appendChild(deleteButton);
     deleteCell.appendChild(deleteHidden);
     row.appendChild(deleteCell);
+    res.send("/insert?" + holder);
   }
   else {
       console.log("error");
-      req.send("/insert?" + holder);
+      res.send("/insert?" + holder);
   }
 });
-req.send("/insert?" + holder);
+res.send("/insert?" + holder);
 event.preventDefault();                                     //no refreshes!
 });
 //function that well, deletes an entry
