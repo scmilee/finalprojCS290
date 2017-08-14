@@ -5,15 +5,16 @@ var handlebars = require("express-handlebars").create({defaultLayout: "main"});
 var mysql = require("mysql");
 
 var pool = mysql.createPool({
-    host: "classmysql.engr.oregonstate.edu",
-    user: "cs290_drudged",
-    password: "5602",
-    database: "cs290_drudged"
+    host: "localhost",
+    port: "8088",
+    user: "student",
+    password: "default",
+    database: "student"
 });
 
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
-app.set("port", 5613);
+app.set("port", 5612);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -31,7 +32,7 @@ app.use(express.static("public"));
     })
 });
 */
-app.get('/reset-table',function(req,res,next){
+app.get('/reset-table',function(req,results,next){
     var context = {};
     pool.query("DROP TABLE IF EXISTS workouts", function(err){
         var createString = "CREATE TABLE workouts("+
@@ -42,12 +43,12 @@ app.get('/reset-table',function(req,res,next){
         "date DATE,"+
         "lbs BOOLEAN)";
         pool.query(createString, function(err){
-            res.render('table',context);
+            results.render('table',context);
         })
     });
 });
 //selects all from workouts DB ,cycles through every row and puts it into an array to be shipped off to JSON PARSE for realtime formatting
-app.get('/', function(req, res, next){
+app.get('/', function(req, results, next){
     var context = {};
     pool.query('SELECT * FROM workouts', function(err, rows, fields){
     if(err){
@@ -66,13 +67,13 @@ app.get('/', function(req, res, next){
         params.push(placeH);
     }
     context.results = params;
-    res.render('table', context);
+    results.render('table', context);
     })
 });
 
 
 //basic DB insertion with re.query as source
-app.get('/insert',function(req,res,next){
+app.get('/insert',function(req,results,next){
   var context = {};
    pool.query("INSERT INTO `workouts` (`name`, `reps`, `weight`, `date`, `lbs`) VALUES (?, ?, ?, ?, ?)",
     [req.query.exercise,
@@ -80,21 +81,21 @@ app.get('/insert',function(req,res,next){
     req.query.weight,
     req.query.date,
     req.query.lbsOr],
-    function(err, res){
+    function(err, results){
         if(err){
           next(err);
           return;
         }
-        context.inserted = res.insertId;
-        res.send(JSON.stringify(context));
+        context.inserted = results.insertId;
+        results.send(JSON.stringify(context));
   });
 });
 //delete entry at the passed ID param
-app.get('/delete', function(req, res, next) {
+app.get('/delete', function(req, results, next) {
     var context = {};
     pool.query("DELETE FROM `workouts` WHERE id = ?",
         [req.query.id],
-        function(err, res) {
+        function(err, results) {
             if(err){
                 next(err);
                 return;
@@ -102,7 +103,7 @@ app.get('/delete', function(req, res, next) {
     });
 });
 //selects a desired entry and ships it off to the editor page to make changes
-app.get('/entryEdit',function(req, res, next){
+app.get('/entryEdit',function(req, results, next){
     var context = {};
     pool.query('SELECT * FROM `workouts` WHERE id=?',[req.query.id],
     function(err, rows, fields){
@@ -117,22 +118,22 @@ app.get('/entryEdit',function(req, res, next){
                 holder.push(placeH);
             }
         context.results = holder[0];
-        res.render('entryEdit', context);
+        results.render('entryEdit', context);
     });
 });
 //function that queries a selection, performs checks on the result, and then updates the ones that have been changed
 //and keeps results that haven't been.
-app.get('/editor', function(req, res, next){
+app.get('/editor', function(req, results, next){
     var context = {};
 
     pool.query("SELECT * FROM `workouts` WHERE id=?",  [req.query.id],
-    function(err, res){
+    function(err, results){
             if(err){
                 next(err);
                 return;
             }
-            if(res.length == 1){
-                var current = res[0]; //saves values for update comparison
+            if(results.length == 1){
+                var current = results[0]; //saves values for update comparison
 
                 if(req.query.lbsOr === "on"){
                     req.query.lbsOr = "1";
@@ -142,7 +143,7 @@ app.get('/editor', function(req, res, next){
                 }
                 pool.query('UPDATE `workouts` SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?',
                 [req.query.exercise || current.name,req.query.reps || current.reps,req.query.weight || current.weight, req.query.date || current.date,  req.query.lbsOr,  req.query.id],
-                function(err, res){
+                function(err, results){
                     if(err){
                         next(err);
                         return;
@@ -168,22 +169,22 @@ app.get('/editor', function(req, res, next){
                             holder.push(placeH);
                         }
                         context.results = holder;
-                        res.render('table', context);       //Display everything
+                        results.render('table', context);       //Display everything
                     });
                 });
             }
     });
 });
 
-app.use(function(req, res){
-	res.status(404);
-	res.render("404");
+app.use(function(req, results){
+	results.status(404);
+	results.render("404");
 });
 
-app.use(function(err, req, res, next){
+app.use(function(err, req, results, next){
 	console.log(err.stack);
-	res.status(500);
-	res.render("500");
+	results.status(500);
+	results.render("500");
 });
 
 app.listen(app.get('port'), function(){
