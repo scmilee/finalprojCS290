@@ -80,11 +80,11 @@ req.addEventListener('load', function(){
     deleteCell.appendChild(deleteHidden);
     row.appendChild(deleteCell);
     
-    res.send("/insert?" + holder);
+    req.send("/insert?" + holder);
   }
   else {
       console.log("error");
-      res.send("/insert?" + holder);
+      req.send("/insert?" + holder);
   }
 });
 
