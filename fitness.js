@@ -127,12 +127,12 @@ app.get('/editor', function(req, res, next){
     var context = {};
 
     pool.query("SELECT * FROM `workouts` WHERE id=?",  [req.query.id],
-    function(err, res){
+    function(err, result){
             if(err){
                 next(err);
                 return;
             }
-            if(res.length == 1){
+            if(result.length == 1){
                 var current = res[0]; //saves values for update comparison
 
                 if(req.query.lbsOr === "on"){
@@ -143,7 +143,7 @@ app.get('/editor', function(req, res, next){
                 }
                 pool.query('UPDATE `workouts` SET name=?, reps=?, weight=?, date=?, lbs=? WHERE id=?',
                 [req.query.exercise || current.name,req.query.reps || current.reps,req.query.weight || current.weight, req.query.date || current.date,  req.query.lbsOr,  req.query.id],
-                function(err, res){
+                function(err, result){
                     if(err){
                         next(err);
                         return;
