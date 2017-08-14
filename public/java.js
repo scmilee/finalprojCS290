@@ -22,7 +22,7 @@ req.addEventListener('load', function(){
     var id = response.inserted;
      //prepping for table fill
     var table = document.getElementById("exerciseTable");
-    var row = table.insertRow(-1);
+    var row = table.insertRow(id);
 
     //creating cells and appending them to the rows to match the headers
     var exerName = document.createElement('td');
