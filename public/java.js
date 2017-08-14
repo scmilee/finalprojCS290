@@ -2,7 +2,7 @@
 document.getElementById('addExerciseButton').addEventListener('click',function(event){      //Add listener to addExerciseButton
 
 var addExercise = document.getElementById("addExercise");
-var req = new XMLHttpRequest();
+var request = new XMLHttpRequest();
 //sets the query URL for the DB interactions
 var holder ="exercise="+addExercise.elements.exercise.value+"&reps="+addExercise.elements.reps.value+"&weight="+addExercise.elements.weight.value+"&date="+addExercise.elements.date.value;
 
