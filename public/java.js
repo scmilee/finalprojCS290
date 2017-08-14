@@ -86,8 +86,8 @@ request.addEventListener('load', function(){
      
   }
 });
- res.send('insert/?'+ holder);
-  //no refreshes!
+ request.send(null);
+ event.preventDefault(); //no refreshes!
 });
 //function that well, deletes an entry
 function deleteData(tableId, id){
