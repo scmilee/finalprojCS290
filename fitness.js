@@ -81,12 +81,12 @@ app.get('/insert',function(req,res,next){
     req.query.weight,
     req.query.date,
     req.query.lbsOr],
-    function(err, res){
+    function(err, result){
         if(err){
           next(err);
           return;
         }
-        context.inserted = res.insertId;
+        context.inserted = result.insertId;
         res.send(JSON.stringify(context));
   });
 });
