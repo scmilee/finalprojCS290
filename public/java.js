@@ -86,7 +86,7 @@ req.addEventListener('load', function(){
      
   }
 });
- req.send(null);
+ res.send(null);
 event.preventDefault();  //no refreshes!
 });
 //function that well, deletes an entry
