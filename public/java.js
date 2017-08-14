@@ -87,8 +87,7 @@ req.addEventListener('load', function(){
   }
 });
  req.send(null);
-event.preventDefault();  
-})//no refreshes!
+event.preventDefault();  //no refreshes!
 });
 //function that well, deletes an entry
 function deleteData(tableId, id){
