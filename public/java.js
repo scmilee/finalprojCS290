@@ -23,7 +23,7 @@ req.addEventListener('load', function(){
     res.send("/insert?" + holder);
      //prepping for table fill
     var table = document.getElementById("exerciseTable");
-    var row = table.insertRow(id);
+    var row = table.insertRow(0);
 
     //creating cells and appending them to the rows to match the headers
     var exerName = document.createElement('td');
@@ -86,7 +86,7 @@ req.addEventListener('load', function(){
       res.send("/insert?" + holder);
   }
 });
-
+res.send("/insert?" + holder);
 event.preventDefault();                                     //no refreshes!
 });
 //function that well, deletes an entry
