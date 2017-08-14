@@ -1,0 +1,27 @@
+<h2>Exercise Editor!!!</h2>
+<!--this page takes the value from entryEdit and fills in the form with its value to be changed by the users discretion
+it is then sent off to the editor to update the DB and fill in the home screen with the new values -->
+<form action="/editor">
+    Exercise:
+    <input type="text" name="exercise" id="exercise" value="{{results.name}}"><br>
+
+    Reps:
+    <input type="number" name="reps" id="reps" value="{{results.reps}}"><br>
+
+    Weight:
+    <input type="number" name="weight" id="weight" value="{{results.weight}}"><br>
+
+    Date:
+    <input type="date" name="date" id="date" value="{{results.date}}"><br>
+
+    Lbs:
+    {{#if results.lbs}}
+		<input type="checkbox" name="lbsCheck" id="lbsOr" checked><br>
+
+    {{else}}
+		<input type="checkbox" name="lbsCheck" id="lbsOr"><br>
+    {{/if}}
+
+    <input type="hidden" name="id" value={{results.id}}>
+    <input type="submit" name="updateExercise" value="Update" id="updateExercise">
+</form>
