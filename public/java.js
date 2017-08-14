@@ -86,7 +86,7 @@ req.addEventListener('load', function(){
       res.send("/insert?" + holder);
   }
 });
-res.send("/insert?" + holder);
+
 event.preventDefault();                                     //no refreshes!
 });
 //function that well, deletes an entry
