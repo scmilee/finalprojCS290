@@ -70,7 +70,18 @@ app.get('/', function(req, res, next){
     res.render('table', context);
     })
 });
-
+//delete entry at the passed ID param
+app.get('/delete', function(req, res, next) {
+    var context = {};
+    pool.query("DELETE FROM `workouts` WHERE id = ?",
+        [req.query.id],
+        function(err, res) {
+            if(err){
+                next(err);
+                return;
+            }
+    });
+});
 
 //basic DB insertion with re.query as source
 app.get('/insert',function(req,res,next){
@@ -90,37 +101,8 @@ app.get('/insert',function(req,res,next){
         res.send(JSON.stringify(context));
   });
 });
-//delete entry at the passed ID param
-app.get('/delete', function(req, res, next) {
-    var context = {};
-    pool.query("DELETE FROM `workouts` WHERE id = ?",
-        [req.query.id],
-        function(err, res) {
-            if(err){
-                next(err);
-                return;
-            }
-    });
-});
-//selects a desired entry and ships it off to the editor page to make changes
-app.get('/entryEdit',function(req, res, next){
-    var context = {};
-    pool.query('SELECT * FROM `workouts` WHERE id=?',[req.query.id],
-    function(err, rows, fields){
-            if(err){
-                next(err);
-                return;
-            }
-            var holder = [];
 
-            for(var row in rows){
-                var placeH = {'name': rows[row].name,'reps': rows[row].reps,'weight': rows[row].weight,'date':rows[row].date,'lbs':rows[row].lbs,'id':rows[row].id};
-                holder.push(placeH);
-            }
-        context.results = holder[0];
-        res.render('entryEdit', context);
-    });
-});
+
 //function that queries a selection, performs checks on the result, and then updates the ones that have been changed
 //and keeps results that haven't been.
 app.get('/editor', function(req, res, next){
@@ -175,7 +157,25 @@ app.get('/editor', function(req, res, next){
             }
     });
 });
+//selects a desired entry and ships it off to the editor page to make changes
+app.get('/entryEdit',function(req, res, next){
+    var context = {};
+    pool.query('SELECT * FROM `workouts` WHERE id=?',[req.query.id],
+    function(err, rows, fields){
+            if(err){
+                next(err);
+                return;
+            }
+            var holder = [];
 
+            for(var row in rows){
+                var placeH = {'name': rows[row].name,'reps': rows[row].reps,'weight': rows[row].weight,'date':rows[row].date,'lbs':rows[row].lbs,'id':rows[row].id};
+                holder.push(placeH);
+            }
+        context.results = holder[0];
+        res.render('entryEdit', context);
+    });
+});
 app.use(function(req, res){
 	res.status(404);
 	res.render("404");
