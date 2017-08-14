@@ -86,7 +86,7 @@ app.get('/insert',function(req,res,next){
           return;
         }
         context.inserted = res.insertId;
-        req.send(JSON.stringify(context));
+        res.send(JSON.stringify(context));
   });
 });
 //delete entry at the passed ID param
