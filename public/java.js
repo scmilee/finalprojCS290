@@ -18,6 +18,7 @@ request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 
 request.addEventListener('load', function(){
   if(request.status >= 200 && request.status < 400){
+     console.log("woooop")
     var response = JSON.parse(request.responseText);
     var id = response.inserted;
     
@@ -82,10 +83,10 @@ request.addEventListener('load', function(){
    
   }
   else {
-      console.log("error");
-     
+      console.log("error");  
   }
 });
+  console.log("")
  request.send("/insert?" + holder");
   //no refreshes!
 });
