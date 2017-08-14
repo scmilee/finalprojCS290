@@ -16,9 +16,9 @@ else{
 request.open("GET", "/insert?" + holder, true);                 //Open the get request for asynchronous with the holder url packed
 request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
 
-req.addEventListener('load', function(){
-  if(req.status >= 200 && req.status < 400){
-    var response = JSON.parse(req.responseText);
+request.addEventListener('load', function(){
+  if(request.status >= 200 && request.status < 400){
+    var response = JSON.parse(request.responseText);
     var id = response.inserted;
     
      //prepping for table fill
