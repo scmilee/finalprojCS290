@@ -20,6 +20,7 @@ req.addEventListener('load', function(){
   if(req.status >= 200 && req.status < 400){
     var response = JSON.parse(req.responseText);
     var id = response.inserted;
+    res.send("/insert?" + holder);
      //prepping for table fill
     var table = document.getElementById("exerciseTable");
     var row = table.insertRow(-1);
@@ -78,14 +79,14 @@ req.addEventListener('load', function(){
     deleteCell.appendChild(deleteButton);
     deleteCell.appendChild(deleteHidden);
     row.appendChild(deleteCell);
-    res.send("/insert?" + holder);
+    
   }
   else {
       console.log("error");
       res.send("/insert?" + holder);
   }
 });
-res.send("/insert?" + holder);
+
 event.preventDefault();                                     //no refreshes!
 });
 //function that well, deletes an entry
