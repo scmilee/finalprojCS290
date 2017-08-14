@@ -22,7 +22,7 @@
         <th>Weight</th>
         <th>Date</th>
         <th>Unit</th>
-        <th>Update</th>
+        <th>Edit</th>
         <th>Delete</th>
     </tr>
 
@@ -34,7 +34,7 @@
                 <td>{{this.weight}}</td>
                 <td>{{this.date}}</td>
                 <td>{{this.lbs}}</td>
-                <td><a href="/entryEdit?id={{this.id}}"><input type="button" value="Update"></a></td>
+                <td><a href="/entryEdit?id={{this.id}}"><input type="button" value="Edit"></a></td>
                 <td>
                     <input type="button" name="delete" value="Delete" onClick="deleteData('dataTable',{{this.id}})">
                     <input type="hidden" id="delete{{this.id}}">
