@@ -8,7 +8,8 @@ var pool = mysql.createPool({
     host: "classmysql.engr.oregonstate.edu",
     user: "cs290_drudged",
     password: "5602",
-    database: "cs290_drudged"
+    database: "cs290_drudged",
+    dateStrings: 'true'
 });
 
 app.engine("handlebars", handlebars.engine);
