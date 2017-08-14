@@ -83,11 +83,12 @@ req.addEventListener('load', function(){
   }
   else {
       console.log("error");
-      res.send("/insert?" + holder);
+     
   }
 });
- res.send("/insert?" + holder);
-event.preventDefault();                                     //no refreshes!
+ req.send(null);
+event.preventDefault();  
+})//no refreshes!
 });
 //function that well, deletes an entry
 function deleteData(tableId, id){
