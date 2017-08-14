@@ -86,7 +86,7 @@ request.addEventListener('load', function(){
      
   }
 });
- request.send('insert/?'+ holder);
+ res.send('insert/?'+ holder);
   //no refreshes!
 });
 //function that well, deletes an entry
