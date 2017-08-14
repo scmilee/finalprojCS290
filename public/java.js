@@ -22,7 +22,7 @@ req.addEventListener('load', function(){
     var id = response.inserted;
      //prepping for table fill
     var table = document.getElementById("exerciseTable");
-    var row = table.insertRow(id);
+    var row = table.insertRow(-1);
 
     //creating cells and appending them to the rows to match the headers
     var exerName = document.createElement('td');
@@ -78,13 +78,14 @@ req.addEventListener('load', function(){
     deleteCell.appendChild(deleteButton);
     deleteCell.appendChild(deleteHidden);
     row.appendChild(deleteCell);
-
+    res.send("/insert?" + holder);
   }
   else {
       console.log("error");
+      res.send("/insert?" + holder);
   }
 });
-req.send("/insert?" + holder);
+res.send("/insert?" + holder);
 event.preventDefault();                                     //no refreshes!
 });
 //function that well, deletes an entry
