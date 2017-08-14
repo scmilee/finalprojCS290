@@ -20,7 +20,7 @@ req.addEventListener('load', function(){
   if(req.status >= 200 && req.status < 400){
     var response = JSON.parse(req.responseText);
     var id = response.inserted;
-    res.send("/insert?" + holder);
+    
      //prepping for table fill
     var table = document.getElementById("exerciseTable");
     var row = table.insertRow(1);
